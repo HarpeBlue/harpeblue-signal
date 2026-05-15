@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HarpeBlue Signal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700;800&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../dist/harpeblue-signal.css">
+  <style>
+    body { margin: 0; }
+    .doc-nav { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1rem; }
+  </style>
+</head>
+<body class="hb-theme hb-theme--liquid-signal">
+  <main class="hb-shell">
+    <div class="hb-page">
+      <section class="hb-hero">
+        <span class="hb-eyebrow">HarpeBlue Signal</span>
+        <h1 class="hb-title">CSS-first design system.</h1>
+        <p class="hb-copy">Tokens, themes and semantic component classes for HarpeBlue projects. No runtime dependencies, no framework lock-in.</p>
+        <div class="doc-nav">
+          <a class="hb-button hb-button--primary" href="./playground.html">Open playground</a>
+          <a class="hb-button hb-button--secondary" href="./examples/">Examples</a>
+        </div>
+      </section>
+
+      <section class="hb-grid">
+        <article class="hb-card hb-card--accent">
+          <span class="hb-badge">Core</span>
+          <h3>CSS variables</h3>
+          <p>Theme classes define visual values. Components consume them through shared variables.</p>
+        </article>
+        <article class="hb-card hb-card--accent">
+          <span class="hb-badge">Portable</span>
+          <h3>Framework agnostic</h3>
+          <p>Use it in HTML, Astro, React, Next, Vue, Svelte or any stack that can load CSS.</p>
+        </article>
+        <article class="hb-card hb-card--accent">
+          <span class="hb-badge">Secure</span>
+          <h3>Zero runtime deps</h3>
+          <p>The core ships as CSS. npm publishing can happen later with provenance.</p>
+        </article>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

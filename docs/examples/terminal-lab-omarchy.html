@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omarchy Cheat Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Outfit', sans-serif;
+    background:
+      radial-gradient(circle at 16% 0%, rgba(37, 99, 235, 0.2), transparent 30%),
+      radial-gradient(circle at 86% 10%, rgba(20, 241, 217, 0.14), transparent 30%),
+      radial-gradient(circle at 50% 100%, rgba(255, 42, 117, 0.1), transparent 34%),
+      #08070d;
+    color: #f0ecfa;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .header h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, #dbeafe, #2563eb, #14f1d9, #ff2a75);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.3rem;
+  }
+
+  .header .sub {
+    font-size: 1rem;
+    font-weight: 300;
+    color: #6f6685;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: linear-gradient(180deg, rgba(22, 19, 35, 0.96), rgba(16, 14, 26, 0.96));
+    border: 1px solid #2b2540;
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: border-color 0.3s;
+  }
+
+  .card:hover {
+    border-color: #22d3ee55;
+  }
+
+  .card-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .card-title .icon { font-size: 1.1rem; }
+
+  .card-title.teal { color: #22d3ee; }
+  .card-title.amber { color: #fbbf24; }
+  .card-title.rose { color: #ff2a75; }
+  .card-title.violet { color: #a855f7; }
+  .card-title.sky { color: #38bdf8; }
+  .card-title.lime { color: #14f1d9; }
+  .card-title.orange { color: #fb923c; }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid #211c33;
+  }
+
+  .row:last-child { border-bottom: none; }
+
+  .row .label {
+    font-size: 0.88rem;
+    color: #a7a0b8;
+    font-weight: 300;
+  }
+
+  .row .keys {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  kbd {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: linear-gradient(180deg, #26223a, #1d1930);
+    border: 1px solid #342d4b;
+    border-radius: 6px;
+    padding: 3px 8px;
+    color: #f0ecfa;
+    white-space: nowrap;
+  }
+
+  .sep {
+    color: #6f6685;
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 0 1px;
+  }
+
+  .tip {
+    margin-top: 3rem;
+    text-align: center;
+    padding: 1.2rem;
+    background: rgba(22, 19, 35, 0.82);
+    border: 1px dashed #2b2540;
+    border-radius: 12px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tip p {
+    font-size: 0.85rem;
+    color: #a7a0b8;
+    font-weight: 300;
+  }
+
+  .tip kbd {
+    background: #1d1930;
+    color: #22d3ee;
+    border-color: #22d3ee44;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 1rem; }
+    .header h1 { font-size: 2.2rem; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Omarchy</h1>
+  <div class="sub">HarpeBlue Signal · Guía completa de atajos · Hyprland</div>
+</div>
+
+<div class="grid">
+
+  <!-- ESENCIALES -->
+  <div class="card">
+    <div class="card-title teal"><span class="icon">⚡</span> Esenciales</div>
+    <div class="row">
+      <span class="label">Terminal (Alacritty)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Enter</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Tmux (sesión)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Alt</kbd><span class="sep">+</span><kbd>Enter</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Lanzador de apps</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Space</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Navegador</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>Enter</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Archivos (Nautilus)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>F</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Editor (Neovim)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>N</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Ver todos los atajos</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>K</kbd></span>
+    </div>
+  </div>
+
+  <!-- VENTANAS -->
+  <div class="card">
+    <div class="card-title rose"><span class="icon">◻</span> Ventanas</div>
+    <div class="row">
+      <span class="label">Cerrar ventana</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>W</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Cerrar todas</span>
+      <span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Alt</kbd><span class="sep">+</span><kbd>Del</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Pantalla completa</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>F</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Ventana flotante</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>T</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Cambiar split</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>J</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Pop out (flotar + pin)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>O</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Cambiar layout workspace</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>L</kbd></span>
+    </div>
+  </div>
+
+  <!-- NAVEGACIÓN -->
+  <div class="card">
+    <div class="card-title sky"><span class="icon">↔</span> Navegación</div>
+    <div class="row">
+      <span class="label">Mover foco</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>← ↑ ↓ →</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Intercambiar ventanas</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>← ↑ ↓ →</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Ciclar ventanas</span>
+      <span class="keys"><kbd>Alt</kbd><span class="sep">+</span><kbd>Tab</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Redimensionar (izq.)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>-</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Redimensionar (der.)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>=</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Mover ventana (ratón)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Clic Izq</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Resize (ratón)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Clic Der</kbd></span>
+    </div>
+  </div>
+
+  <!-- WORKSPACES -->
+  <div class="card">
+    <div class="card-title violet"><span class="icon">▦</span> Workspaces</div>
+    <div class="row">
+      <span class="label">Ir a workspace N</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>1-9</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Mover ventana a workspace N</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>1-9</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Scratchpad (mostrar/ocultar)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>S</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Enviar al scratchpad</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Alt</kbd><span class="sep">+</span><kbd>S</kbd></span>
+    </div>
+  </div>
+
+  <!-- APPS -->
+  <div class="card">
+    <div class="card-title amber"><span class="icon">🎵</span> Apps Rápidas</div>
+    <div class="row">
+      <span class="label">Spotify</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>M</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Docker (lazydocker)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>D</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Obsidian</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>O</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">1Password</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>/</kbd></span>
+    </div>
+  </div>
+
+  <!-- MENÚS -->
+  <div class="card">
+    <div class="card-title lime"><span class="icon">☰</span> Menús del Sistema</div>
+    <div class="row">
+      <span class="label">Menú Omarchy</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Alt</kbd><span class="sep">+</span><kbd>Space</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Menú sistema (apagar, etc.)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Esc</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Menú captura</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Ctrl</kbd><span class="sep">+</span><kbd>C</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Menú toggle</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Ctrl</kbd><span class="sep">+</span><kbd>O</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Menú hardware</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Ctrl</kbd><span class="sep">+</span><kbd>H</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Emoji picker</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Ctrl</kbd><span class="sep">+</span><kbd>E</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Toggle barra superior</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>Space</kbd></span>
+    </div>
+  </div>
+
+  <!-- CAPTURAS -->
+  <div class="card">
+    <div class="card-title orange"><span class="icon">📸</span> Capturas y Grabación</div>
+    <div class="row">
+      <span class="label">Screenshot</span>
+      <span class="keys"><kbd>Print</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Grabar pantalla</span>
+      <span class="keys"><kbd>Alt</kbd><span class="sep">+</span><kbd>Print</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Color picker</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Print</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">OCR (extraer texto)</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Print</kbd></span>
+    </div>
+  </div>
+
+  <!-- SISTEMA -->
+  <div class="card">
+    <div class="card-title teal"><span class="icon">🔒</span> Sistema y Utilidades</div>
+    <div class="row">
+      <span class="label">Bloquear pantalla</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Ctrl</kbd><span class="sep">+</span><kbd>L</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Toggle bloqueo por inactividad</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Ctrl</kbd><span class="sep">+</span><kbd>I</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Luz nocturna</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Ctrl</kbd><span class="sep">+</span><kbd>N</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Dictado por voz</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Ctrl</kbd><span class="sep">+</span><kbd>X</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Push-to-talk</span>
+      <span class="keys"><kbd>F9</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Poner recordatorio</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Ctrl</kbd><span class="sep">+</span><kbd>R</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Controles de audio</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Ctrl</kbd><span class="sep">+</span><kbd>A</kbd></span>
+    </div>
+    <div class="row">
+      <span class="label">Zoom in</span>
+      <span class="keys"><kbd>Super</kbd><span class="sep">+</span><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Z</kbd></span>
+    </div>
+  </div>
+
+</div>
+
+<div class="tip">
+  <p>💡 ¿Se te olvidó un atajo? Presiona <kbd>Super</kbd> + <kbd>K</kbd> para abrir el visor interactivo de keybindings en cualquier momento.<br>
+  Personaliza tus atajos en <code style="color:#22d3ee">~/.config/hypr/bindings.conf</code> · Identidad en <code style="color:#fbbf24">~/Work/brand-system</code></p>
+</div>
+
+</body>
+</html>

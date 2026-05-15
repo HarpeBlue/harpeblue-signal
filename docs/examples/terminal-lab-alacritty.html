@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alacritty + Tmux Cheat Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08070d;
+    --panel: #161323;
+    --panel-2: #100e1a;
+    --line: #2b2540;
+    --line-soft: #211c33;
+    --text: #f0ecfa;
+    --muted: #a7a0b8;
+    --ghost: #6f6685;
+    --blue: #2563eb;
+    --liquid: #14f1d9;
+    --amber: #fbbf24;
+    --amber-2: #f59e0b;
+    --teal: #22d3ee;
+    --mint: #06d6a0;
+    --rose: #ff2a75;
+    --violet: #a78bfa;
+    --sky: #38bdf8;
+    --lime: #3b82f6;
+    --orange: #fb923c;
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { color-scheme: dark; }
+
+  body {
+    min-height: 100vh;
+    padding: 34px;
+    overflow-x: hidden;
+    font-family: "Outfit", system-ui, sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(circle at 12% 6%, rgba(37, 99, 235, 0.2), transparent 28%),
+      radial-gradient(circle at 82% 12%, rgba(20, 241, 217, 0.15), transparent 30%),
+      radial-gradient(circle at 50% 100%, rgba(255, 42, 117, 0.1), transparent 34%),
+      linear-gradient(135deg, #09090e 0%, var(--bg) 45%, #080811 100%);
+  }
+
+  .page {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 28px;
+    align-items: end;
+    margin-bottom: 28px;
+    padding: 30px;
+    overflow: hidden;
+    background: linear-gradient(145deg, rgba(22, 19, 35, 0.94), rgba(16, 14, 26, 0.8));
+    border: 1px solid rgba(34, 211, 238, 0.16);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(37, 99, 235, 0.26), transparent 28%, transparent 68%, rgba(20, 241, 217, 0.18));
+    mask: linear-gradient(#000, transparent 68%);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    width: fit-content;
+    margin-bottom: 12px;
+    padding: 6px 10px;
+    color: var(--liquid);
+    background: rgba(34, 211, 238, 0.09);
+    border: 1px solid rgba(34, 211, 238, 0.22);
+    border-radius: 999px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    position: relative;
+    max-width: 880px;
+    margin-bottom: 10px;
+    font-size: clamp(3rem, 7vw, 7rem);
+    font-weight: 900;
+    letter-spacing: -0.075em;
+    line-height: 0.88;
+    background: linear-gradient(135deg, #dbeafe 0%, var(--blue) 28%, var(--liquid) 58%, var(--rose) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    position: relative;
+    max-width: 720px;
+    color: var(--muted);
+    font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .hero-card {
+    position: relative;
+    min-width: 260px;
+    padding: 18px;
+    background: rgba(8, 7, 13, 0.62);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    backdrop-filter: blur(18px);
+  }
+
+  .hero-card .metric {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .hero-card .metric:last-child { border-bottom: 0; }
+
+  .metric span {
+    color: var(--ghost);
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .metric strong {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--text);
+    font-size: 0.82rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 18px;
+  }
+
+  .card {
+    --accent: var(--amber);
+    grid-column: span 4;
+    position: relative;
+    min-height: 100%;
+    padding: 20px;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(22, 19, 35, 0.97), rgba(16, 14, 26, 0.97));
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    box-shadow: 0 14px 42px rgba(0, 0, 0, 0.18);
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), transparent 86%);
+  }
+
+  .card::after {
+    content: "";
+    position: absolute;
+    right: -44px;
+    top: -44px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 20%, transparent), transparent 68%);
+    opacity: 0.85;
+  }
+
+  .card.wide { grid-column: span 8; }
+  .card.amber { --accent: var(--amber); }
+  .card.teal { --accent: var(--teal); }
+  .card.rose { --accent: var(--rose); }
+  .card.sky { --accent: var(--sky); }
+  .card.violet { --accent: var(--violet); }
+  .card.lime { --accent: var(--lime); }
+
+  .card-title {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+
+  .title-left {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 auto;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+
+  h2 {
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .badge {
+    flex: 0 0 auto;
+    padding: 4px 8px;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    border-radius: 999px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .rows {
+    position: relative;
+    z-index: 1;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 16px;
+    align-items: center;
+    min-height: 38px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .row:last-child { border-bottom: 0; }
+
+  .label {
+    min-width: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.25;
+  }
+
+  .hint {
+    display: block;
+    margin-top: 2px;
+    color: var(--ghost);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.64rem;
+  }
+
+  .keys {
+    display: inline-flex;
+    justify-content: flex-end;
+    gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+
+  kbd {
+    display: inline-flex;
+    align-items: center;
+    min-height: 25px;
+    padding: 3px 8px;
+    color: #d8d5ce;
+    background: linear-gradient(180deg, #262638, #1b1b2a);
+    border: 1px solid #343449;
+    border-bottom-color: #151520;
+    border-radius: 7px;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.05), 0 2px 0 #090910;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  kbd.accent {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 38%, #343449);
+  }
+
+  .sep {
+    color: #48485c;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .subcard {
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(8, 7, 13, 0.54);
+    border: 1px dashed var(--line);
+    border-radius: 14px;
+  }
+
+  .subcard-title {
+    margin-bottom: 6px;
+    color: var(--ghost);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .note {
+    margin-top: 22px;
+    padding: 18px 20px;
+    color: var(--muted);
+    background: rgba(22, 19, 35, 0.82);
+    border: 1px dashed #303045;
+    border-radius: 18px;
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.7;
+    text-align: center;
+  }
+
+  code {
+    color: var(--teal);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78em;
+  }
+
+  @media (max-width: 1100px) {
+    .card,
+    .card.wide { grid-column: span 6; }
+  }
+
+  @media (max-width: 760px) {
+    body { padding: 16px; }
+    .hero { grid-template-columns: 1fr; padding: 22px; }
+    .hero-card { min-width: 0; }
+    .card,
+    .card.wide { grid-column: 1 / -1; }
+    .row { grid-template-columns: 1fr; gap: 8px; }
+    .keys { justify-content: flex-start; }
+  }
+
+  @media print {
+    body { padding: 0; background: var(--bg); }
+    .hero,
+    .card,
+    .note { box-shadow: none; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">HarpeBlue Signal / Terminal Lab</div>
+      <h1>Alacritty<br>+ Tmux</h1>
+      <p class="subtitle">Una referencia visual para moverte rapido en tu terminal: atajos propios de Alacritty, navegacion tipo Vim y el flujo real de Tmux configurado en esta maquina.</p>
+    </div>
+    <aside class="hero-card" aria-label="Resumen">
+      <div class="metric"><span>Terminal</span><strong>Alacritty</strong></div>
+      <div class="metric"><span>Multiplexer</span><strong>Tmux</strong></div>
+      <div class="metric"><span>Prefix</span><strong>Ctrl+Space</strong></div>
+      <div class="metric"><span>Fuente</span><strong>JetBrains Mono</strong></div>
+    </aside>
+  </section>
+
+  <section class="grid" aria-label="Atajos de Alacritty y Tmux">
+    <article class="card amber">
+      <div class="card-title">
+        <div class="title-left"><span class="icon">⚡</span><h2>Esenciales</h2></div>
+        <span class="badge">tuyos</span>
+      </div>
+      <div class="rows">
+        <div class="row"><span class="label">Pegar desde clipboard</span><span class="keys"><kbd>Shift</kbd><span class="sep">+</span><kbd>Insert</kbd></span></div>
+        <div class="row"><span class="label">Copiar al clipboard</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Insert</kbd></span></div>
+        <div class="row"><span class="label">Enter alternativo <span class="hint">envía escape + enter</span></span><span class="keys"><kbd>Shift</kbd><span class="sep">+</span><kbd>Enter</kbd></span></div>
+        <div class="row"><span class="label">Pegar selección primaria</span><span class="keys"><kbd>Shift</kbd><span class="sep">+</span><kbd>Clic medio</kbd></span></div>
+      </div>
+    </article>
+
+    <article class="card teal wide">
+      <div class="card-title">
+        <div class="title-left"><span class="icon">✦</span><h2>Vi Mode</h2></div>
+        <span class="badge">Alacritty</span>
+      </div>
+      <div class="rows">
+        <div class="row"><span class="label">Entrar o salir de Vi Mode</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>Space</kbd></span></div>
+        <div class="row"><span class="label">Mover cursor estilo Vim</span><span class="keys"><kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd></span></div>
+        <div class="row"><span class="label">Mover por palabras</span><span class="keys"><kbd>b</kbd><kbd>w</kbd><kbd>e</kbd></span></div>
+        <div class="row"><span class="label">Inicio, primer caracter, fin</span><span class="keys"><kbd>0</kbd><kbd>^</kbd><kbd>$</kbd></span></div>
+        <div class="row"><span class="label">Seleccionar normal, línea o bloque</span><span class="keys"><kbd>v</kbd><kbd>Shift</kbd><span class="sep">+</span><kbd>v</kbd><kbd>Ctrl</kbd><span class="sep">+</span><kbd>v</kbd></span></div>
+        <div class="row"><span class="label">Copiar selección y salir</span><span class="keys"><kbd>y</kbd></span></div>
+        <div class="row"><span class="label">Buscar adelante o atrás</span><span class="keys"><kbd>/</kbd><kbd>?</kbd></span></div>
+      </div>
+      <div class="subcard">
+        <div class="subcard-title">Scroll dentro de Vi Mode</div>
+        <div class="row"><span class="label">Línea arriba / abajo</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>y</kbd><kbd>Ctrl</kbd><span class="sep">+</span><kbd>e</kbd></span></div>
+        <div class="row"><span class="label">Página arriba / abajo</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>b</kbd><kbd>Ctrl</kbd><span class="sep">+</span><kbd>f</kbd></span></div>
+        <div class="row"><span class="label">Media página arriba / abajo</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>u</kbd><kbd>Ctrl</kbd><span class="sep">+</span><kbd>d</kbd></span></div>
+      </div>
+    </article>
+
+    <article class="card rose">
+      <div class="card-title">
+        <div class="title-left"><span class="icon">⊞</span><h2>Tmux Base</h2></div>
+        <span class="badge">Tmux</span>
+      </div>
+      <div class="rows">
+        <div class="row"><span class="label">Prefix primario</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Space</kbd></span></div>
+        <div class="row"><span class="label">Prefix secundario</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>b</kbd></span></div>
+        <div class="row"><span class="label">Enviar prefix literal</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Space</kbd></span></div>
+        <div class="row"><span class="label">Recargar configuración</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>q</kbd></span></div>
+        <div class="row"><span class="label">Menú de keybindings</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>?</kbd></span></div>
+      </div>
+    </article>
+
+    <article class="card sky">
+      <div class="card-title">
+        <div class="title-left"><span class="icon">▦</span><h2>Paneles</h2></div>
+        <span class="badge">Tmux</span>
+      </div>
+      <div class="rows">
+        <div class="row"><span class="label">Split automático</span><span class="keys"><kbd>Alt</kbd><span class="sep">+</span><kbd>Enter</kbd></span></div>
+        <div class="row"><span class="label">Split vertical</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>h</kbd></span></div>
+        <div class="row"><span class="label">Split horizontal</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>v</kbd></span></div>
+        <div class="row"><span class="label">Cerrar panel</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>x</kbd></span></div>
+        <div class="row"><span class="label">Navegar paneles</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Alt</kbd><span class="sep">+</span><kbd>Flechas</kbd></span></div>
+        <div class="row"><span class="label">Redimensionar paneles</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Alt</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>Flechas</kbd></span></div>
+      </div>
+    </article>
+
+    <article class="card violet">
+      <div class="card-title">
+        <div class="title-left"><span class="icon">◻</span><h2>Ventanas</h2></div>
+        <span class="badge">Tmux</span>
+      </div>
+      <div class="rows">
+        <div class="row"><span class="label">Nueva ventana</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>c</kbd></span></div>
+        <div class="row"><span class="label">Ir a ventana N</span><span class="keys"><kbd>Alt</kbd><span class="sep">+</span><kbd>1-9</kbd></span></div>
+        <div class="row"><span class="label">Anterior / siguiente</span><span class="keys"><kbd>Alt</kbd><span class="sep">+</span><kbd>←</kbd><kbd>Alt</kbd><span class="sep">+</span><kbd>→</kbd></span></div>
+        <div class="row"><span class="label">Mover ventana</span><span class="keys"><kbd>Alt</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>← / →</kbd></span></div>
+        <div class="row"><span class="label">Renombrar ventana</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>r</kbd></span></div>
+        <div class="row"><span class="label">Matar ventana</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>k</kbd></span></div>
+      </div>
+    </article>
+
+    <article class="card violet">
+      <div class="card-title">
+        <div class="title-left"><span class="icon">▣</span><h2>Sesiones</h2></div>
+        <span class="badge">Tmux</span>
+      </div>
+      <div class="rows">
+        <div class="row"><span class="label">Nueva sesión</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>Ctrl</kbd><span class="sep">+</span><kbd>c</kbd></span></div>
+        <div class="row"><span class="label">Sesión anterior / siguiente</span><span class="keys"><kbd>Alt</kbd><span class="sep">+</span><kbd>↑</kbd><kbd>Alt</kbd><span class="sep">+</span><kbd>↓</kbd></span></div>
+        <div class="row"><span class="label">Anterior / siguiente con prefix</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>P</kbd><kbd class="accent">Prefix</kbd><kbd>N</kbd></span></div>
+        <div class="row"><span class="label">Renombrar sesión</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>R</kbd></span></div>
+        <div class="row"><span class="label">Matar sesión</span><span class="keys"><kbd class="accent">Prefix</kbd><kbd>K</kbd></span></div>
+      </div>
+    </article>
+
+    <article class="card amber wide">
+      <div class="card-title">
+        <div class="title-left"><span class="icon">⌨</span><h2>Alacritty General</h2></div>
+        <span class="badge">default</span>
+      </div>
+      <div class="rows">
+        <div class="row"><span class="label">Copiar / Pegar clásico</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>c</kbd><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>v</kbd></span></div>
+        <div class="row"><span class="label">Buscar hacia adelante / atrás</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>f</kbd><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>b</kbd></span></div>
+        <div class="row"><span class="label">Aumentar / disminuir fuente</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>=</kbd><kbd>Ctrl</kbd><span class="sep">+</span><kbd>-</kbd></span></div>
+        <div class="row"><span class="label">Resetear tamaño de fuente</span><span class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>0</kbd></span></div>
+        <div class="row"><span class="label">Scroll por página</span><span class="keys"><kbd>Shift</kbd><span class="sep">+</span><kbd>PgUp</kbd><kbd>Shift</kbd><span class="sep">+</span><kbd>PgDn</kbd></span></div>
+        <div class="row"><span class="label">Ir al inicio / final del buffer</span><span class="keys"><kbd>Shift</kbd><span class="sep">+</span><kbd>Home</kbd><kbd>Shift</kbd><span class="sep">+</span><kbd>End</kbd></span></div>
+      </div>
+    </article>
+  </section>
+
+  <p class="note">
+    <kbd>Prefix</kbd> significa <kbd>Ctrl</kbd> + <kbd>Space</kbd> o <kbd>Ctrl</kbd> + <kbd>b</kbd>. Para consultar tmux desde la terminal: <kbd>Prefix</kbd> + <kbd>?</kbd>.<br>
+    Identidad: <code>~/Work/brand-system</code> · Configuracion fuente: <code>~/.config/alacritty/alacritty.toml</code> · <code>~/.config/tmux/tmux.conf</code>
+  </p>
+</main>
+</body>
+</html>

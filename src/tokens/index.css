@@ -1,0 +1,91 @@
+:root {
+  color-scheme: light dark;
+
+  --hb-brand-name: "HarpeBlue Signal";
+
+  --hb-core-ink: #08070d;
+  --hb-core-paper: #f6f3fa;
+  --hb-core-blue: #2563eb;
+  --hb-core-liquid: #14f1d9;
+  --hb-core-cyan: #22d3ee;
+  --hb-core-mint: #06d6a0;
+  --hb-core-violet: #a855f7;
+  --hb-core-pink: #ff2a75;
+  --hb-core-amber: #fbbf24;
+  --hb-core-lime: #b6ff00;
+
+  --hb-font-display: "Outfit", "Space Grotesk", system-ui, sans-serif;
+  --hb-font-ui: "Inter", "Satoshi", "Outfit", system-ui, sans-serif;
+  --hb-font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+  --hb-space-1: 0.25rem;
+  --hb-space-2: 0.5rem;
+  --hb-space-3: 0.75rem;
+  --hb-space-4: 1rem;
+  --hb-space-5: 1.25rem;
+  --hb-space-6: 1.5rem;
+  --hb-space-8: 2rem;
+  --hb-space-10: 2.5rem;
+  --hb-space-12: 3rem;
+
+  --hb-radius-sm: 0.625rem;
+  --hb-radius-md: 1rem;
+  --hb-radius-lg: 1.5rem;
+  --hb-radius-xl: 2rem;
+  --hb-radius-pill: 999px;
+
+  --hb-duration-fast: 140ms;
+  --hb-duration-base: 220ms;
+  --hb-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --hb-bg: #08070d;
+  --hb-surface: #161323;
+  --hb-surface-soft: #1d1930;
+  --hb-border: #2b2540;
+  --hb-border-soft: #211c33;
+  --hb-text: #f0ecfa;
+  --hb-muted: #a7a0b8;
+  --hb-faint: #6f6685;
+  --hb-primary: #3b82f6;
+  --hb-secondary: #22d3ee;
+  --hb-accent: #ff2a75;
+  --hb-good: #06d6a0;
+  --hb-warn: #fbbf24;
+  --hb-danger: #ef4444;
+
+  --hb-shadow-soft: 0 14px 42px rgba(0, 0, 0, 0.18);
+  --hb-shadow-strong: 0 24px 80px rgba(0, 0, 0, 0.34);
+  --hb-glow: 0 0 42px color-mix(in srgb, var(--hb-primary) 24%, transparent);
+
+  --hb-body-font: var(--hb-font-ui);
+  --hb-body-letter-spacing: -0.01em;
+
+  --hb-button-height: 2.75rem;
+  --hb-button-padding-x: 1rem;
+  --hb-button-radius: var(--hb-radius-pill);
+  --hb-button-font: var(--hb-font-ui);
+  --hb-button-font-size: 0.92rem;
+  --hb-button-letter-spacing: -0.01em;
+  --hb-button-shadow: var(--hb-glow);
+  --hb-button-border-width: 1px;
+
+  --hb-card-padding: var(--hb-space-5);
+  --hb-card-radius: var(--hb-radius-lg);
+  --hb-card-shadow: var(--hb-shadow-soft);
+  --hb-card-border-width: 1px;
+
+  --hb-input-height: 2.75rem;
+  --hb-input-padding-x: 0.875rem;
+  --hb-input-radius: var(--hb-radius-md);
+  --hb-input-font: var(--hb-font-ui);
+  --hb-input-shadow: none;
+
+  --hb-badge-height: 1.625rem;
+  --hb-badge-radius: var(--hb-radius-pill);
+  --hb-badge-font: var(--hb-font-mono);
+  --hb-badge-letter-spacing: 0.16em;
+
+  --hb-hero-padding: clamp(1.5rem, 5vw, 3rem);
+  --hb-hero-radius: var(--hb-radius-xl);
+  --hb-hero-shadow: var(--hb-shadow-strong);
+}

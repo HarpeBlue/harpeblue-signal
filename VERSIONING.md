@@ -34,9 +34,13 @@ While the system is still stabilizing, releases stay in `0.x`.
 3. Run `npm run build && npm run check`.
 4. Commit with Gitmoji.
 5. Tag the release.
+6. Push the tag to trigger the npm publish workflow.
 
 Example:
 
 ```bash
 git tag v0.1.0
+git push origin v0.1.0
 ```
+
+The GitHub Actions workflow `.github/workflows/publish.yml` publishes the package to npm.
